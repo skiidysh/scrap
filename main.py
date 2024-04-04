@@ -1,8 +1,25 @@
+import http.server
+import socketserver
 import requests
 import sqlite3
 from bs4 import BeautifulSoup
 
 conn = sqlite3.connect('laptops.db')
+class MyHttpRequestHandler(http.server.SimpleHTTPRequestHandler):
+    def do_GET(self):
+        self.send_response(200)
+        self.send_header('Content-type', 'text/html')
+        self.end_headers()
+        
+        with open('index.html', 'rb') as f:
+            self.wfile.write(f.read())
+
+PORT = 8000
+Handler = MyHttpRequestHandler
+httpd = socketserver.TCPServer(("", PORT), Handler)
+
+print("Сервер запущен на порту", PORT)
+httpd.serve_forever()
 def get_html(url):
     response = requests.get(url)
     return response.text
