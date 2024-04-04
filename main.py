@@ -44,4 +44,4 @@ def searchfunc(query):
     return result
 
 if __name__ == '__main__':
-    parser(config.url)
+    app.run(debug=True)
