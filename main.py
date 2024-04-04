@@ -2,6 +2,7 @@ import requests
 import sqlite3
 from bs4 import BeautifulSoup
 
+conn = sqlite3.connect('laptops.db')
 def get_html(url):
     response = requests.get(url)
     return response.text
@@ -18,7 +19,7 @@ def parse_page(html):
     
     return data
 def save_to_db(data):
-    conn = sqlite3.connect('laptops.db')
+    
     cursor = conn.cursor()
     
     cursor.execute('''CREATE TABLE IF NOT EXISTS laptops
