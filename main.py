@@ -30,6 +30,7 @@ def save_to_db(data):
     conn.close()
 
 if __name__ == '__main__':
+    
     html = get_html(url)
     data = parse_page(html)
     save_to_db(data)
